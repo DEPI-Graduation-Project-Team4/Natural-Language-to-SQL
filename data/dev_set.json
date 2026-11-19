@@ -1,0 +1,52 @@
+[
+  {
+    "id": 1,
+    "question": "Show the names and departments of all students.",
+    "gold_sql": "SELECT name, department FROM students;"
+  },
+  {
+    "id": 2,
+    "question": "Which students are older than 20?",
+    "gold_sql": "SELECT student_id, name, age FROM students WHERE age > 20;"
+  },
+  {
+    "id": 3,
+    "question": "How many students are in the Computer Science department?",
+    "gold_sql": "SELECT COUNT(*) AS student_count FROM students WHERE department = 'Computer Science';"
+  },
+  {
+    "id": 4,
+    "question": "What is the average age of all students?",
+    "gold_sql": "SELECT AVG(age) AS average_age FROM students;"
+  },
+  {
+    "id": 5,
+    "question": "List each student's name and the courses they are enrolled in.",
+    "gold_sql": "SELECT s.name, c.course_name FROM students AS s JOIN enrollments AS e ON s.student_id = e.student_id JOIN courses AS c ON e.course_id = c.course_id;"
+  },
+  {
+    "id": 6,
+    "question": "List courses from the highest number of credits to the lowest.",
+    "gold_sql": "SELECT course_name, credits FROM courses ORDER BY credits DESC;"
+  },
+  {
+    "id": 7,
+    "question": "How many students are there in each department?",
+    "gold_sql": "SELECT department, COUNT(*) AS student_count FROM students GROUP BY department;"
+  },
+  {
+    "id": 8,
+    "question": "Which departments have more than two students?",
+    "gold_sql": "SELECT department, COUNT(*) AS student_count FROM students GROUP BY department HAVING COUNT(*) > 2;"
+  },
+  {
+    "id": 9,
+    "question": "What is the total number of credits for all courses?",
+    "gold_sql": "SELECT SUM(credits) AS total_credits FROM courses;"
+  },
+  {
+    "id": 10,
+    "question": "Which students are enrolled in a course worth 4 credits?",
+    "gold_sql": "SELECT name FROM students WHERE student_id IN (SELECT e.student_id FROM enrollments AS e JOIN courses AS c ON e.course_id = c.course_id WHERE c.credits = 4);"
+  }
+]

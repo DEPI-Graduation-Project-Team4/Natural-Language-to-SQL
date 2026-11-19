@@ -1,0 +1,122 @@
+[
+  {
+    "id": 1,
+    "db_id": "car_1",
+    "question": "How many countries does each continent have? List the continent id, continent name and the number of countries.",
+    "gold_sql": "SELECT T1.ContId ,  T1.Continent ,  count(*) FROM CONTINENTS AS T1 JOIN COUNTRIES AS T2 ON T1.ContId  =  T2.Continent GROUP BY T1.ContId;"
+  },
+  {
+    "id": 2,
+    "db_id": "car_1",
+    "question": "Which model of the car has the minimum horsepower?",
+    "gold_sql": "SELECT T1.Model FROM CAR_NAMES AS T1 JOIN CARS_DATA AS T2 ON T1.MakeId  =  T2.Id ORDER BY T2.horsepower ASC LIMIT 1;"
+  },
+  {
+    "id": 3,
+    "db_id": "car_1",
+    "question": "Find the model of the car whose weight is below the average weight.",
+    "gold_sql": "SELECT T1.model FROM CAR_NAMES AS T1 JOIN CARS_DATA AS T2 ON T1.MakeId  =  T2.Id WHERE T2.Weight  <  (SELECT avg(Weight) FROM CARS_DATA)"
+  },
+  {
+    "id": 4,
+    "db_id": "car_1",
+    "question": "Find the make and production time of the cars that were produced in the earliest year?",
+    "gold_sql": "SELECT T2.Make ,  T1.Year FROM CARS_DATA AS T1 JOIN CAR_NAMES AS T2 ON T1.Id  =  T2.MakeId WHERE T1.Year  =  (SELECT min(YEAR) FROM CARS_DATA);"
+  },
+  {
+    "id": 5,
+    "db_id": "car_1",
+    "question": "Which of the countries has the most car makers? List the country name.",
+    "gold_sql": "SELECT T2.CountryName FROM CAR_MAKERS AS T1 JOIN COUNTRIES AS T2 ON T1.Country  =  T2.CountryId GROUP BY T1.Country ORDER BY Count(*) DESC LIMIT 1;"
+  },
+  {
+    "id": 6,
+    "db_id": "flight_2",
+    "question": "Which country does Airline \"JetBlue Airways\" belong to?",
+    "gold_sql": "SELECT Country FROM AIRLINES WHERE Airline  =  \"JetBlue Airways\""
+  },
+  {
+    "id": 7,
+    "db_id": "flight_2",
+    "question": "List the airport code and name in the city of Anthony.",
+    "gold_sql": "SELECT AirportCode ,  AirportName FROM AIRPORTS WHERE city  =  \"Anthony\""
+  },
+  {
+    "id": 8,
+    "db_id": "flight_2",
+    "question": "How many flights depart from City Aberdeen?",
+    "gold_sql": "SELECT count(*) FROM FLIGHTS AS T1 JOIN AIRPORTS AS T2 ON T1.SourceAirport  =  T2.AirportCode WHERE T2.City  =  \"Aberdeen\""
+  },
+  {
+    "id": 9,
+    "db_id": "flight_2",
+    "question": "Which city has most number of arriving flights?",
+    "gold_sql": "SELECT T1.City FROM AIRPORTS AS T1 JOIN FLIGHTS AS T2 ON T1.AirportCode  =  T2.DestAirport GROUP BY T1.City ORDER BY count(*) DESC LIMIT 1"
+  },
+  {
+    "id": 10,
+    "db_id": "flight_2",
+    "question": "Find all airlines that have flights from both airports 'APG' and 'CVO'.",
+    "gold_sql": "SELECT T1.Airline FROM AIRLINES AS T1 JOIN FLIGHTS AS T2 ON T1.uid  =  T2.Airline WHERE T2.SourceAirport  =  \"APG\" INTERSECT SELECT T1.Airline FROM AIRLINES AS T1 JOIN FLIGHTS AS T2 ON T1.uid  =  T2.Airline WHERE T2.SourceAirport  =  \"CVO\""
+  },
+  {
+    "id": 11,
+    "db_id": "pets_1",
+    "question": "Find the number of pets whose weight is heavier than 10.",
+    "gold_sql": "SELECT count(*) FROM pets WHERE weight  >  10"
+  },
+  {
+    "id": 12,
+    "db_id": "pets_1",
+    "question": "Find the maximum weight for each type of pet. List the maximum weight and pet type.",
+    "gold_sql": "SELECT max(weight) ,  petType FROM pets GROUP BY petType"
+  },
+  {
+    "id": 13,
+    "db_id": "pets_1",
+    "question": "Find the number of dog pets that are raised by female students (with sex F).",
+    "gold_sql": "SELECT count(*) FROM student AS T1 JOIN has_pet AS T2 ON T1.stuid  =  T2.stuid JOIN pets AS T3 ON T2.petid  =  T3.petid WHERE T1.sex  =  'F' AND T3.pettype  =  'dog'"
+  },
+  {
+    "id": 14,
+    "db_id": "pets_1",
+    "question": "Find the first name of students who have both cat and dog pets .",
+    "gold_sql": "select t1.fname from student as t1 join has_pet as t2 on t1.stuid  =  t2.stuid join pets as t3 on t3.petid  =  t2.petid where t3.pettype  =  'cat' intersect select t1.fname from student as t1 join has_pet as t2 on t1.stuid  =  t2.stuid join pets as t3 on t3.petid  =  t2.petid where t3.pettype  =  'dog'"
+  },
+  {
+    "id": 15,
+    "db_id": "pets_1",
+    "question": "Find the major and age of students who do not have a cat pet.",
+    "gold_sql": "SELECT major ,  age FROM student WHERE stuid NOT IN (SELECT T1.stuid FROM student AS T1 JOIN has_pet AS T2 ON T1.stuid  =  T2.stuid JOIN pets AS T3 ON T3.petid  =  T2.petid WHERE T3.pettype  =  'cat')"
+  },
+  {
+    "id": 16,
+    "db_id": "world_1",
+    "question": "What are the names of all the countries that became independent after 1950?",
+    "gold_sql": "SELECT Name FROM country WHERE IndepYear  >  1950"
+  },
+  {
+    "id": 17,
+    "db_id": "world_1",
+    "question": "Which region is the city Kabul located in?",
+    "gold_sql": "SELECT Region FROM country AS T1 JOIN city AS T2 ON T1.Code  =  T2.CountryCode WHERE T2.Name  =  \"Kabul\""
+  },
+  {
+    "id": 18,
+    "db_id": "world_1",
+    "question": "Which language is the most popular in Aruba?",
+    "gold_sql": "SELECT T2.Language FROM country AS T1 JOIN countrylanguage AS T2 ON T1.Code  =  T2.CountryCode WHERE T1.Name  =  \"Aruba\" ORDER BY Percentage DESC LIMIT 1"
+  },
+  {
+    "id": 19,
+    "db_id": "world_1",
+    "question": "How many countries speak both English and Dutch?",
+    "gold_sql": "SELECT COUNT(*) FROM (SELECT T1.Name FROM country AS T1 JOIN countrylanguage AS T2 ON T1.Code  =  T2.CountryCode WHERE T2.Language  =  \"English\" INTERSECT SELECT T1.Name FROM country AS T1 JOIN countrylanguage AS T2 ON T1.Code  =  T2.CountryCode WHERE T2.Language  =  \"Dutch\")"
+  },
+  {
+    "id": 20,
+    "db_id": "world_1",
+    "question": "Return the country name and the numbers of languages spoken for each country that speaks at least 3 languages.",
+    "gold_sql": "SELECT COUNT(T2.Language) ,  T1.Name FROM country AS T1 JOIN countrylanguage AS T2 ON T1.Code  =  T2.CountryCode GROUP BY T1.Name HAVING COUNT(*)  >  2"
+  }
+]
