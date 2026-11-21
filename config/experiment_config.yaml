@@ -1,20 +1,12 @@
-# Project 3: Natural Language to SQL — Frozen Experiment Configuration (v3.1)
-# Single source of truth for M2 (LLM/prompts), M3 (executor/validator),
-# M4 (evaluation), and M5 (pipeline/app).
-
-experiment:
-  name: "nl2sql-project3"
-  version: "3.1"
-  seed: 42
-  default_mode: "grounded"
-  modes:
-    - "baseline"
-    - "grounded_schema"
-    - "grounded"
+seed: 42
+default_mode: "grounded"
+modes:
+  - "baseline"
+  - "grounded_schema"
+  - "grounded"
 
 llm:
   provider: "gemini"
-  # Fast, balanced Gemini model (alternatives: gemini-3.5-flash-lite, gemini-4-argon, gemini-4-neon)
   model_id: "gemini-4-hydrogen"
   api_key_env: "GEMINI_API_KEY"
   temperature: 0.0
@@ -29,9 +21,6 @@ execution:
   read_only: true
   pragma_query_only: true
 
-# Strict db_id -> db_path allowlist (relative to repository root).
-# Enforced by both src/pipeline.py (M5) and src/executor.py (M3).
-# Any unknown db_id or path outside this allowlist must be rejected.
 databases:
   university: "data/university.db"
   concert_singer: "data/spider_dbs/concert_singer/concert_singer.sqlite"
@@ -45,8 +34,6 @@ datasets:
   test_set: "data/test_set.json"
   spider_subset: "data/spider_subset.json"
 
-# SHA-256 dataset hashes — lock after Member 1 freezes the final splits
-# and verifies them with `python src/setup_db.py --check-gold`.
 dataset_hashes:
   schema_sql: null
   few_shot_pool: null
