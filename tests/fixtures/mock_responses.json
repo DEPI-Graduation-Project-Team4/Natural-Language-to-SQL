@@ -1,0 +1,149 @@
+{
+  "ok": {
+    "question": "List departments whose average student grade exceeds 85.",
+    "db_id": "university",
+    "db_path": "data/university.db",
+    "mode": "grounded",
+    "status": "ok",
+    "generated_sql": "SELECT c.department, AVG(g.numeric_score) AS avg_score FROM courses c JOIN enrollments e ON c.course_id = e.course_id JOIN grades g ON e.enrollment_id = g.enrollment_id GROUP BY c.department HAVING AVG(g.numeric_score) > 85;",
+    "clarification_question": null,
+    "syntax_valid": true,
+    "is_read_only_safe": true,
+    "schema_valid": true,
+    "execution_success": true,
+    "error_category": null,
+    "results_df": [
+      {
+        "department": "Computer Science",
+        "avg_score": 88.4
+      },
+      {
+        "department": "Mathematics",
+        "avg_score": 86.75
+      }
+    ],
+    "explanation": "Two departments have an average numeric score above 85: Computer Science (88.4) and Mathematics (86.75).",
+    "latency_breakdown_ms": {
+      "sql_gen_latency_ms": 412.5,
+      "validation_exec_latency_ms": 14.2,
+      "explanation_latency_ms": 185.3,
+      "total_latency_ms": 612.0
+    },
+    "error_message": null
+  },
+  "ambiguous": {
+    "question": "Show the top performing students.",
+    "db_id": "university",
+    "db_path": "data/university.db",
+    "mode": "grounded",
+    "status": "ambiguous",
+    "generated_sql": null,
+    "clarification_question": "How should 'top performing' be defined (e.g., highest average numeric_score or most 'A' letter grades), and how many students would you like returned?",
+    "syntax_valid": false,
+    "is_read_only_safe": false,
+    "schema_valid": false,
+    "execution_success": false,
+    "error_category": null,
+    "results_df": null,
+    "explanation": null,
+    "latency_breakdown_ms": {
+      "sql_gen_latency_ms": 325.0,
+      "validation_exec_latency_ms": 0.0,
+      "explanation_latency_ms": 0.0,
+      "total_latency_ms": 325.0
+    },
+    "error_message": null
+  },
+  "syntax_error": {
+    "question": "List all courses in the Physics department.",
+    "db_id": "university",
+    "db_path": "data/university.db",
+    "mode": "baseline",
+    "status": "syntax_error",
+    "generated_sql": "SELECT course_name FROM courses WHERE (department = 'Physics'",
+    "clarification_question": null,
+    "syntax_valid": false,
+    "is_read_only_safe": false,
+    "schema_valid": false,
+    "execution_success": false,
+    "error_category": "syntax_error",
+    "results_df": null,
+    "explanation": null,
+    "latency_breakdown_ms": {
+      "sql_gen_latency_ms": 290.4,
+      "validation_exec_latency_ms": 3.1,
+      "explanation_latency_ms": 0.0,
+      "total_latency_ms": 293.5
+    },
+    "error_message": "SQLite parse error: Expecting ). Line 1, Col: 61."
+  },
+  "security_violation": {
+    "question": "Remove all students who have no enrollments.",
+    "db_id": "university",
+    "db_path": "data/university.db",
+    "mode": "grounded_schema",
+    "status": "security_violation",
+    "generated_sql": "DELETE FROM students WHERE student_id NOT IN (SELECT student_id FROM enrollments);",
+    "clarification_question": null,
+    "syntax_valid": true,
+    "is_read_only_safe": false,
+    "schema_valid": false,
+    "execution_success": false,
+    "error_category": "security_violation",
+    "results_df": null,
+    "explanation": null,
+    "latency_breakdown_ms": {
+      "sql_gen_latency_ms": 310.0,
+      "validation_exec_latency_ms": 4.5,
+      "explanation_latency_ms": 0.0,
+      "total_latency_ms": 314.5
+    },
+    "error_message": "Disallowed statement type 'DELETE': only read-only SELECT queries are permitted."
+  },
+  "schema_hallucination_error": {
+    "question": "List each student's GPA and advisor name.",
+    "db_id": "university",
+    "db_path": "data/university.db",
+    "mode": "baseline",
+    "status": "schema_hallucination_error",
+    "generated_sql": "SELECT first_name, last_name, gpa, advisor_name FROM students;",
+    "clarification_question": null,
+    "syntax_valid": true,
+    "is_read_only_safe": true,
+    "schema_valid": false,
+    "execution_success": false,
+    "error_category": "schema_hallucination_error",
+    "results_df": null,
+    "explanation": null,
+    "latency_breakdown_ms": {
+      "sql_gen_latency_ms": 340.2,
+      "validation_exec_latency_ms": 6.8,
+      "explanation_latency_ms": 0.0,
+      "total_latency_ms": 347.0
+    },
+    "error_message": "Unknown column(s) referenced in table 'students': gpa, advisor_name."
+  },
+  "execution_error": {
+    "question": "What is the standard deviation of student numeric scores per department?",
+    "db_id": "university",
+    "db_path": "data/university.db",
+    "mode": "grounded_schema",
+    "status": "execution_error",
+    "generated_sql": "SELECT c.department, STDDEV(g.numeric_score) AS score_sd FROM courses c JOIN enrollments e ON c.course_id = e.course_id JOIN grades g ON e.enrollment_id = g.enrollment_id GROUP BY c.department;",
+    "clarification_question": null,
+    "syntax_valid": true,
+    "is_read_only_safe": true,
+    "schema_valid": true,
+    "execution_success": false,
+    "error_category": "execution_error",
+    "results_df": null,
+    "explanation": null,
+    "latency_breakdown_ms": {
+      "sql_gen_latency_ms": 395.0,
+      "validation_exec_latency_ms": 12.4,
+      "explanation_latency_ms": 0.0,
+      "total_latency_ms": 407.4
+    },
+    "error_message": "SQLite execution error: no such function: STDDEV."
+  }
+}

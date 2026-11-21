@@ -1,177 +1,467 @@
 [
   {
-    "id":1,
-    "question":"Show the IDs and names of students in the Biology department.",
-    "gold_sql":"SELECT student_id, name FROM students WHERE department = 'Biology';"
+    "id": "univ_test_001",
+    "db_id": "university",
+    "question": "Show the IDs and names of students in the Biology department.",
+    "gold_sql": "SELECT student_id, name FROM students WHERE department = 'Biology';",
+    "hardness": "easy",
+    "sql_components": ["WHERE"],
+    "is_ambiguous": false,
+    "ambiguity_category": null,
+    "expected_clarification_points": []
   },
   {
-    "id":2,
-    "question":"List courses that have 3 credits.",
-    "gold_sql":"SELECT course_id, course_name FROM courses WHERE credits = 3;"
+    "id": "univ_test_002",
+    "db_id": "university",
+    "question": "List courses that have 3 credits.",
+    "gold_sql": "SELECT course_id, course_name FROM courses WHERE credits = 3;",
+    "hardness": "easy",
+    "sql_components": ["WHERE"],
+    "is_ambiguous": false,
+    "ambiguity_category": null,
+    "expected_clarification_points": []
   },
   {
-    "id":3,
-    "question":"Find students whose age is at most 19.",
-    "gold_sql":"SELECT name, age FROM students WHERE age <= 19;"
+    "id": "univ_test_003",
+    "db_id": "university",
+    "question": "Find students whose age is at most 19.",
+    "gold_sql": "SELECT name, age FROM students WHERE age <= 19;",
+    "hardness": "easy",
+    "sql_components": ["WHERE"],
+    "is_ambiguous": false,
+    "ambiguity_category": null,
+    "expected_clarification_points": []
   },
   {
-    "id":4,
-    "question":"Show enrollments made after June 15, 2026.",
-    "gold_sql":"SELECT enrollment_id, student_id, course_id, enrollment_date FROM enrollments WHERE enrollment_date > '2026-06-15';"
+    "id": "univ_test_004",
+    "db_id": "university",
+    "question": "Show enrollments made after June 15, 2026.",
+    "gold_sql": "SELECT enrollment_id, student_id, course_id, enrollment_date FROM enrollments WHERE enrollment_date > '2026-06-15';",
+    "hardness": "easy",
+    "sql_components": ["WHERE"],
+    "is_ambiguous": false,
+    "ambiguity_category": null,
+    "expected_clarification_points": []
   },
   {
-    "id":5,
-    "question":"Find grades below 70.",
-    "gold_sql":"SELECT grade_id, enrollment_id, grade FROM grades WHERE grade < 70;"
+    "id": "univ_test_005",
+    "db_id": "university",
+    "question": "Find grades below 70.",
+    "gold_sql": "SELECT grade_id, enrollment_id, grade FROM grades WHERE grade < 70;",
+    "hardness": "easy",
+    "sql_components": ["WHERE"],
+    "is_ambiguous": false,
+    "ambiguity_category": null,
+    "expected_clarification_points": []
   },
   {
-    "id":6,
-    "question":"How many courses are listed?",
-    "gold_sql":"SELECT COUNT(*) AS course_count FROM courses;"
+    "id": "univ_test_006",
+    "db_id": "university",
+    "question": "How many courses are listed?",
+    "gold_sql": "SELECT COUNT(*) AS course_count FROM courses;",
+    "hardness": "easy",
+    "sql_components": ["COUNT"],
+    "is_ambiguous": false,
+    "ambiguity_category": null,
+    "expected_clarification_points": []
   },
   {
-    "id":7,
-    "question":"What is the average number of credits per course?",
-    "gold_sql":"SELECT AVG(credits) AS average_credits FROM courses;"
+    "id": "univ_test_007",
+    "db_id": "university",
+    "question": "What is the average number of credits per course?",
+    "gold_sql": "SELECT AVG(credits) AS average_credits FROM courses;",
+    "hardness": "easy",
+    "sql_components": ["AVG"],
+    "is_ambiguous": false,
+    "ambiguity_category": null,
+    "expected_clarification_points": []
   },
   {
-    "id":8,
-    "question":"What is the sum of all recorded grades?",
-    "gold_sql":"SELECT SUM(grade) AS total_grade_points FROM grades;"
+    "id": "univ_test_008",
+    "db_id": "university",
+    "question": "What is the lowest grade recorded?",
+    "gold_sql": "SELECT MIN(grade) AS lowest_grade FROM grades;",
+    "hardness": "easy",
+    "sql_components": ["MIN"],
+    "is_ambiguous": false,
+    "ambiguity_category": null,
+    "expected_clarification_points": []
   },
   {
-    "id":9,
-    "question":"What is the lowest grade recorded?",
-    "gold_sql":"SELECT MIN(grade) AS lowest_grade FROM grades;"
+    "id": "univ_test_009",
+    "db_id": "university",
+    "question": "List the five courses with the fewest credits first.",
+    "gold_sql": "SELECT course_name, credits FROM courses ORDER BY credits ASC, course_name ASC LIMIT 5;",
+    "hardness": "medium",
+    "sql_components": ["ORDER BY", "LIMIT"],
+    "is_ambiguous": false,
+    "ambiguity_category": null,
+    "expected_clarification_points": []
   },
   {
-    "id":10,
-    "question":"What is the highest number of credits offered by a course?",
-    "gold_sql":"SELECT MAX(credits) AS highest_credits FROM courses;"
+    "id": "univ_test_010",
+    "db_id": "university",
+    "question": "Find students in Engineering older than 20, ordered by age.",
+    "gold_sql": "SELECT name, age FROM students WHERE department = 'Engineering' AND age > 20 ORDER BY age ASC;",
+    "hardness": "medium",
+    "sql_components": ["WHERE", "ORDER BY"],
+    "is_ambiguous": false,
+    "ambiguity_category": null,
+    "expected_clarification_points": []
   },
   {
-    "id":11,
-    "question":"How many enrollments are recorded?",
-    "gold_sql":"SELECT COUNT(*) AS enrollment_count FROM enrollments;"
+    "id": "univ_test_011",
+    "db_id": "university",
+    "question": "Show each enrollment ID with its grade, if one is recorded.",
+    "gold_sql": "SELECT e.enrollment_id, g.grade FROM enrollments AS e LEFT JOIN grades AS g ON e.enrollment_id = g.enrollment_id;",
+    "hardness": "medium",
+    "sql_components": ["LEFT JOIN"],
+    "is_ambiguous": false,
+    "ambiguity_category": null,
+    "expected_clarification_points": []
   },
   {
-    "id":12,
-    "question":"Show students from youngest to oldest.",
-    "gold_sql":"SELECT name, age FROM students ORDER BY age ASC;"
+    "id": "univ_test_012",
+    "db_id": "university",
+    "question": "List students enrolled in Introduction to Programming.",
+    "gold_sql": "SELECT s.student_id, s.name FROM students AS s JOIN enrollments AS e ON s.student_id = e.student_id JOIN courses AS c ON e.course_id = c.course_id WHERE c.course_name = 'Introduction to Programming';",
+    "hardness": "medium",
+    "sql_components": ["JOIN", "WHERE"],
+    "is_ambiguous": false,
+    "ambiguity_category": null,
+    "expected_clarification_points": []
   },
   {
-    "id":13,
-    "question":"List the five courses with the fewest credits first.",
-    "gold_sql":"SELECT course_name, credits FROM courses ORDER BY credits ASC, course_name ASC LIMIT 5;"
+    "id": "univ_test_013",
+    "db_id": "university",
+    "question": "Show each student's name and their enrollment dates.",
+    "gold_sql": "SELECT s.name, e.enrollment_date FROM students AS s JOIN enrollments AS e ON s.student_id = e.student_id;",
+    "hardness": "medium",
+    "sql_components": ["JOIN"],
+    "is_ambiguous": false,
+    "ambiguity_category": null,
+    "expected_clarification_points": []
   },
   {
-    "id":14,
-    "question":"Show grades from highest to lowest, with the highest first.",
-    "gold_sql":"SELECT enrollment_id, grade FROM grades ORDER BY grade DESC;"
+    "id": "univ_test_014",
+    "db_id": "university",
+    "question": "Show students who have a recorded grade below 75, with the grade.",
+    "gold_sql": "SELECT s.name, g.grade FROM students AS s JOIN enrollments AS e ON s.student_id = e.student_id JOIN grades AS g ON e.enrollment_id = g.enrollment_id WHERE g.grade < 75;",
+    "hardness": "medium",
+    "sql_components": ["JOIN", "WHERE"],
+    "is_ambiguous": false,
+    "ambiguity_category": null,
+    "expected_clarification_points": []
   },
   {
-    "id":15,
-    "question":"Find students in Engineering older than 20, ordered by age.",
-    "gold_sql":"SELECT name, age FROM students WHERE department = 'Engineering' AND age > 20 ORDER BY age ASC;"
+    "id": "univ_test_015",
+    "db_id": "university",
+    "question": "How many courses does each student take?",
+    "gold_sql": "SELECT s.student_id, s.name, COUNT(e.course_id) AS course_count FROM students AS s LEFT JOIN enrollments AS e ON s.student_id = e.student_id GROUP BY s.student_id, s.name;",
+    "hardness": "medium",
+    "sql_components": ["LEFT JOIN", "GROUP BY", "COUNT"],
+    "is_ambiguous": false,
+    "ambiguity_category": null,
+    "expected_clarification_points": []
   },
   {
-    "id":16,
-    "question":"List course names with the names of students enrolled in each course.",
-    "gold_sql":"SELECT c.course_name, s.name FROM courses AS c JOIN enrollments AS e ON c.course_id = e.course_id JOIN students AS s ON e.student_id = s.student_id;"
+    "id": "univ_test_016",
+    "db_id": "university",
+    "question": "How many students are enrolled in each course?",
+    "gold_sql": "SELECT c.course_id, c.course_name, COUNT(e.student_id) AS student_count FROM courses AS c LEFT JOIN enrollments AS e ON c.course_id = e.course_id GROUP BY c.course_id, c.course_name;",
+    "hardness": "medium",
+    "sql_components": ["LEFT JOIN", "GROUP BY", "COUNT"],
+    "is_ambiguous": false,
+    "ambiguity_category": null,
+    "expected_clarification_points": []
   },
   {
-    "id":17,
-    "question":"Show each enrollment ID with its grade, if one is recorded.",
-    "gold_sql":"SELECT e.enrollment_id, g.grade FROM enrollments AS e LEFT JOIN grades AS g ON e.enrollment_id = g.enrollment_id;"
+    "id": "univ_test_017",
+    "db_id": "university",
+    "question": "What is the average grade for each course?",
+    "gold_sql": "SELECT c.course_id, c.course_name, AVG(g.grade) AS average_grade FROM courses AS c JOIN enrollments AS e ON c.course_id = e.course_id JOIN grades AS g ON e.enrollment_id = g.enrollment_id GROUP BY c.course_id, c.course_name;",
+    "hardness": "hard",
+    "sql_components": ["JOIN", "GROUP BY", "AVG"],
+    "is_ambiguous": false,
+    "ambiguity_category": null,
+    "expected_clarification_points": []
   },
   {
-    "id":18,
-    "question":"List students enrolled in Introduction to Programming.",
-    "gold_sql":"SELECT s.student_id, s.name FROM students AS s JOIN enrollments AS e ON s.student_id = e.student_id JOIN courses AS c ON e.course_id = c.course_id WHERE c.course_name = 'Introduction to Programming';"
+    "id": "univ_test_018",
+    "db_id": "university",
+    "question": "Which departments have at least four students?",
+    "gold_sql": "SELECT department, COUNT(*) AS student_count FROM students GROUP BY department HAVING COUNT(*) >= 4;",
+    "hardness": "hard",
+    "sql_components": ["GROUP BY", "HAVING", "COUNT"],
+    "is_ambiguous": false,
+    "ambiguity_category": null,
+    "expected_clarification_points": []
   },
   {
-    "id":19,
-    "question":"Show each student's name and their enrollment dates.",
-    "gold_sql":"SELECT s.name, e.enrollment_date FROM students AS s JOIN enrollments AS e ON s.student_id = e.student_id;"
+    "id": "univ_test_019",
+    "db_id": "university",
+    "question": "Show courses with more than one student enrolled.",
+    "gold_sql": "SELECT c.course_name, COUNT(e.student_id) AS student_count FROM courses AS c JOIN enrollments AS e ON c.course_id = e.course_id GROUP BY c.course_id, c.course_name HAVING COUNT(e.student_id) > 1;",
+    "hardness": "hard",
+    "sql_components": ["JOIN", "GROUP BY", "HAVING", "COUNT"],
+    "is_ambiguous": false,
+    "ambiguity_category": null,
+    "expected_clarification_points": []
   },
   {
-    "id":20,
-    "question":"List course names and the grades recorded for their enrollments.",
-    "gold_sql":"SELECT c.course_name, g.grade FROM courses AS c JOIN enrollments AS e ON c.course_id = e.course_id JOIN grades AS g ON e.enrollment_id = g.enrollment_id;"
+    "id": "univ_test_020",
+    "db_id": "university",
+    "question": "Which students are enrolled in a course with at least 4 credits?",
+    "gold_sql": "SELECT student_id, name FROM students WHERE student_id IN (SELECT e.student_id FROM enrollments AS e JOIN courses AS c ON e.course_id = c.course_id WHERE c.credits >= 4);",
+    "hardness": "hard",
+    "sql_components": ["WHERE", "SUBQUERY", "JOIN"],
+    "is_ambiguous": false,
+    "ambiguity_category": null,
+    "expected_clarification_points": []
   },
   {
-    "id":21,
-    "question":"Show students who have a recorded grade below 75, with the grade.",
-    "gold_sql":"SELECT s.name, g.grade FROM students AS s JOIN enrollments AS e ON s.student_id = e.student_id JOIN grades AS g ON e.enrollment_id = g.enrollment_id WHERE g.grade < 75;"
+    "id": "univ_test_021",
+    "db_id": "university",
+    "question": "Which courses have at least one enrollment?",
+    "gold_sql": "SELECT course_id, course_name FROM courses WHERE course_id IN (SELECT course_id FROM enrollments);",
+    "hardness": "hard",
+    "sql_components": ["WHERE", "SUBQUERY"],
+    "is_ambiguous": false,
+    "ambiguity_category": null,
+    "expected_clarification_points": []
   },
   {
-    "id":22,
-    "question":"List each course and the number of credits for students enrolled in it.",
-    "gold_sql":"SELECT c.course_name, c.credits, s.name FROM courses AS c JOIN enrollments AS e ON c.course_id = e.course_id JOIN students AS s ON e.student_id = s.student_id;"
+    "id": "univ_test_022",
+    "db_id": "university",
+    "question": "Which students are older than the average student age?",
+    "gold_sql": "SELECT student_id, name, age FROM students WHERE age > (SELECT AVG(age) FROM students);",
+    "hardness": "hard",
+    "sql_components": ["WHERE", "SUBQUERY", "AVG"],
+    "is_ambiguous": false,
+    "ambiguity_category": null,
+    "expected_clarification_points": []
   },
   {
-    "id":23,
-    "question":"How many courses does each student take?",
-    "gold_sql":"SELECT s.student_id, s.name, COUNT(e.course_id) AS course_count FROM students AS s LEFT JOIN enrollments AS e ON s.student_id = e.student_id GROUP BY s.student_id, s.name;"
+    "id": "univ_test_023",
+    "db_id": "university",
+    "question": "Which courses have more credits than the average course?",
+    "gold_sql": "SELECT course_id, course_name, credits FROM courses WHERE credits > (SELECT AVG(credits) FROM courses);",
+    "hardness": "hard",
+    "sql_components": ["WHERE", "SUBQUERY", "AVG"],
+    "is_ambiguous": false,
+    "ambiguity_category": null,
+    "expected_clarification_points": []
   },
   {
-    "id":24,
-    "question":"How many students are enrolled in each course?",
-    "gold_sql":"SELECT c.course_id, c.course_name, COUNT(e.student_id) AS student_count FROM courses AS c LEFT JOIN enrollments AS e ON c.course_id = e.course_id GROUP BY c.course_id, c.course_name;"
+    "id": "univ_test_024",
+    "db_id": "university",
+    "question": "List the names of students who are either in the Physics department or earned a grade of at least 90.",
+    "gold_sql": "SELECT name FROM students WHERE department = 'Physics' UNION SELECT s.name FROM students AS s JOIN enrollments AS e ON s.student_id = e.student_id JOIN grades AS g ON e.enrollment_id = g.enrollment_id WHERE g.grade >= 90;",
+    "hardness": "hard",
+    "sql_components": ["WHERE", "JOIN", "UNION"],
+    "is_ambiguous": false,
+    "ambiguity_category": null,
+    "expected_clarification_points": []
   },
   {
-    "id":25,
-    "question":"What is the average grade for each course?",
-    "gold_sql":"SELECT c.course_id, c.course_name, AVG(g.grade) AS average_grade FROM courses AS c JOIN enrollments AS e ON c.course_id = e.course_id JOIN grades AS g ON e.enrollment_id = g.enrollment_id GROUP BY c.course_id, c.course_name;"
+    "id": "univ_test_025",
+    "db_id": "university",
+    "question": "List courses whose average recorded grade is above 85, ordered from highest to lowest average grade.",
+    "gold_sql": "SELECT c.course_name, AVG(g.grade) AS average_grade FROM courses AS c JOIN enrollments AS e ON c.course_id = e.course_id JOIN grades AS g ON e.enrollment_id = g.enrollment_id GROUP BY c.course_id, c.course_name HAVING AVG(g.grade) > 85 ORDER BY average_grade DESC;",
+    "hardness": "extra_hard",
+    "sql_components": ["JOIN", "GROUP BY", "HAVING", "AVG", "ORDER BY"],
+    "is_ambiguous": false,
+    "ambiguity_category": null,
+    "expected_clarification_points": []
   },
   {
-    "id":26,
-    "question":"Which departments have at least four students?",
-    "gold_sql":"SELECT department, COUNT(*) AS student_count FROM students GROUP BY department HAVING COUNT(*) >= 4;"
+    "id": "univ_test_026",
+    "db_id": "university",
+    "question": "Find the IDs and names of courses that have no students enrolled.",
+    "gold_sql": "SELECT course_id, course_name FROM courses EXCEPT SELECT c.course_id, c.course_name FROM courses AS c JOIN enrollments AS e ON c.course_id = e.course_id;",
+    "hardness": "extra_hard",
+    "sql_components": ["JOIN", "EXCEPT"],
+    "is_ambiguous": false,
+    "ambiguity_category": null,
+    "expected_clarification_points": []
   },
   {
-    "id":27,
-    "question":"Show courses with more than one student enrolled.",
-    "gold_sql":"SELECT c.course_name, COUNT(e.student_id) AS student_count FROM courses AS c JOIN enrollments AS e ON c.course_id = e.course_id GROUP BY c.course_id, c.course_name HAVING COUNT(e.student_id) > 1;"
+    "id": "univ_test_027",
+    "db_id": "university",
+    "question": "List the names of students who are both older than 20 and enrolled in a course worth 3 credits.",
+    "gold_sql": "SELECT name FROM students WHERE age > 20 INTERSECT SELECT s.name FROM students AS s JOIN enrollments AS e ON s.student_id = e.student_id JOIN courses AS c ON e.course_id = c.course_id WHERE c.credits = 3;",
+    "hardness": "extra_hard",
+    "sql_components": ["WHERE", "JOIN", "INTERSECT"],
+    "is_ambiguous": false,
+    "ambiguity_category": null,
+    "expected_clarification_points": []
   },
   {
-    "id":28,
-    "question":"Which students are enrolled in a course with at least 4 credits?",
-    "gold_sql":"SELECT student_id, name FROM students WHERE student_id IN (SELECT e.student_id FROM enrollments AS e JOIN courses AS c ON e.course_id = c.course_id WHERE c.credits >= 4);"
+    "id": "univ_test_028",
+    "db_id": "university",
+    "question": "Which students have an average recorded grade above 85 across their enrolled courses, and what is their average grade?",
+    "gold_sql": "SELECT s.student_id, s.name, AVG(g.grade) AS average_grade FROM students AS s JOIN enrollments AS e ON s.student_id = e.student_id JOIN grades AS g ON e.enrollment_id = g.enrollment_id GROUP BY s.student_id, s.name HAVING AVG(g.grade) > 85 ORDER BY average_grade DESC, s.name ASC;",
+    "hardness": "extra_hard",
+    "sql_components": ["JOIN", "GROUP BY", "HAVING", "AVG", "ORDER BY"],
+    "is_ambiguous": false,
+    "ambiguity_category": null,
+    "expected_clarification_points": []
   },
   {
-    "id":29,
-    "question":"Which courses have at least one enrollment?",
-    "gold_sql":"SELECT course_id, course_name FROM courses WHERE course_id IN (SELECT course_id FROM enrollments);"
+    "id": "univ_test_029",
+    "db_id": "university",
+    "question": "Find the students who are the oldest in their respective departments.",
+    "gold_sql": "SELECT s.student_id, s.name, s.department, s.age FROM students AS s WHERE s.age = (SELECT MAX(s2.age) FROM students AS s2 WHERE s2.department = s.department);",
+    "hardness": "extra_hard",
+    "sql_components": ["WHERE", "SUBQUERY", "MAX"],
+    "is_ambiguous": false,
+    "ambiguity_category": null,
+    "expected_clarification_points": []
   },
   {
-    "id":30,
-    "question":"Which students are older than the average student age?",
-    "gold_sql":"SELECT student_id, name, age FROM students WHERE age > (SELECT AVG(age) FROM students);"
+    "id": "univ_test_030",
+    "db_id": "university",
+    "question": "Which departments have an average recorded student grade higher than the overall average grade across all enrollments?",
+    "gold_sql": "SELECT s.department, AVG(g.grade) AS dept_avg_grade FROM students AS s JOIN enrollments AS e ON s.student_id = e.student_id JOIN grades AS g ON e.enrollment_id = g.enrollment_id GROUP BY s.department HAVING AVG(g.grade) > (SELECT AVG(grade) FROM grades);",
+    "hardness": "extra_hard",
+    "sql_components": ["JOIN", "GROUP BY", "HAVING", "SUBQUERY", "AVG"],
+    "is_ambiguous": false,
+    "ambiguity_category": null,
+    "expected_clarification_points": []
   },
   {
-    "id":31,
-    "question":"Which courses have more credits than the average course?",
-    "gold_sql":"SELECT course_id, course_name, credits FROM courses WHERE credits > (SELECT AVG(credits) FROM courses);"
+    "id": "univ_test_031",
+    "db_id": "university",
+    "question": "Find the IDs and names of enrolled students who have never received a grade below 80.",
+    "gold_sql": "SELECT DISTINCT s.student_id, s.name FROM students AS s JOIN enrollments AS e ON s.student_id = e.student_id WHERE s.student_id NOT IN (SELECT e2.student_id FROM enrollments AS e2 JOIN grades AS g2 ON e2.enrollment_id = g2.enrollment_id WHERE g2.grade < 80);",
+    "hardness": "extra_hard",
+    "sql_components": ["DISTINCT", "JOIN", "WHERE", "SUBQUERY"],
+    "is_ambiguous": false,
+    "ambiguity_category": null,
+    "expected_clarification_points": []
   },
   {
-    "id":32,
-    "question":"Show each student's grade.",
-    "gold_sql":null
+    "id": "univ_test_032",
+    "db_id": "university",
+    "question": "List the top 5 students by total enrolled credits along with their average recorded grade.",
+    "gold_sql": "SELECT s.student_id, s.name, SUM(c.credits) AS total_credits, AVG(g.grade) AS average_grade FROM students AS s JOIN enrollments AS e ON s.student_id = e.student_id JOIN courses AS c ON e.course_id = c.course_id LEFT JOIN grades AS g ON e.enrollment_id = g.enrollment_id GROUP BY s.student_id, s.name ORDER BY total_credits DESC, average_grade DESC LIMIT 5;",
+    "hardness": "extra_hard",
+    "sql_components": ["JOIN", "LEFT JOIN", "GROUP BY", "SUM", "AVG", "ORDER BY", "LIMIT"],
+    "is_ambiguous": false,
+    "ambiguity_category": null,
+    "expected_clarification_points": []
   },
   {
-    "id":33,
-    "question":"What is each student's GPA?",
-    "gold_sql":null
+    "id": "univ_test_033",
+    "db_id": "university",
+    "question": "What is each student's GPA?",
+    "gold_sql": null,
+    "hardness": null,
+    "sql_components": [],
+    "is_ambiguous": true,
+    "ambiguity_category": "underspecified_metric",
+    "expected_clarification_points": [
+      "Whether GPA should be computed as a simple average grade or credit-weighted average",
+      "What conversion scale maps numeric grades (0-100) to GPA (e.g., 4.0 scale)",
+      "How to handle NULL grades or students with no enrollments"
+    ]
   },
   {
-    "id":34,
-    "question":"Show the students and their grades.",
-    "gold_sql":null
+    "id": "univ_test_034",
+    "db_id": "university",
+    "question": "Which courses are the most difficult?",
+    "gold_sql": null,
+    "hardness": null,
+    "sql_components": [],
+    "is_ambiguous": true,
+    "ambiguity_category": "underspecified_metric",
+    "expected_clarification_points": [
+      "How 'most difficult' should be defined (e.g., lowest average grade, highest credit value, or lowest enrollment count)",
+      "How many courses to return or what threshold defines difficult"
+    ]
   },
   {
-    "id":35,
-    "question":"Which professor teaches each course?",
-    "gold_sql":null
+    "id": "univ_test_035",
+    "db_id": "university",
+    "question": "Which professor teaches each course?",
+    "gold_sql": null,
+    "hardness": null,
+    "sql_components": [],
+    "is_ambiguous": true,
+    "ambiguity_category": "missing_column_or_table",
+    "expected_clarification_points": [
+      "The database does not have a professor/instructor column or instructors table",
+      "Whether to return existing course information (course_id, course_name, credits) instead"
+    ]
+  },
+  {
+    "id": "univ_test_036",
+    "db_id": "university",
+    "question": "Which classroom building are Biology courses held in?",
+    "gold_sql": null,
+    "hardness": null,
+    "sql_components": [],
+    "is_ambiguous": true,
+    "ambiguity_category": "missing_column_or_table",
+    "expected_clarification_points": [
+      "The database does not store classroom, room, or building location information",
+      "The courses table also does not have a department column to filter Biology courses directly"
+    ]
+  },
+  {
+    "id": "univ_test_037",
+    "db_id": "university",
+    "question": "Show the enrollments for Nasser.",
+    "gold_sql": null,
+    "hardness": null,
+    "sql_components": [],
+    "is_ambiguous": true,
+    "ambiguity_category": "ambiguous_entity_reference",
+    "expected_clarification_points": [
+      "Multiple students share the name 'Nasser' (Omar Nasser, Farah Nasser, Leila Nasser)",
+      "Whether the user wants a specific student by full name/student_id or all students whose name contains 'Nasser'"
+    ]
+  },
+  {
+    "id": "univ_test_038",
+    "db_id": "university",
+    "question": "What is the average grade for Calculus?",
+    "gold_sql": null,
+    "hardness": null,
+    "sql_components": [],
+    "is_ambiguous": true,
+    "ambiguity_category": "ambiguous_entity_reference",
+    "expected_clarification_points": [
+      "Multiple Calculus courses exist in the courses table ('Calculus I' and 'Calculus II')",
+      "Whether to compute the average for a specific course or combine both Calculus courses"
+    ]
+  },
+  {
+    "id": "univ_test_039",
+    "db_id": "university",
+    "question": "Show each student's grade.",
+    "gold_sql": null,
+    "hardness": null,
+    "sql_components": [],
+    "is_ambiguous": true,
+    "ambiguity_category": "temporal_or_scope_ambiguity",
+    "expected_clarification_points": [
+      "Students can have multiple enrollments and grades — clarify whether to list per-course grades, an average grade, or the latest grade",
+      "Whether to include students with no enrollments or missing (NULL) grades"
+    ]
+  },
+  {
+    "id": "univ_test_040",
+    "db_id": "university",
+    "question": "List all students enrolled this semester.",
+    "gold_sql": null,
+    "hardness": null,
+    "sql_components": [],
+    "is_ambiguous": true,
+    "ambiguity_category": "temporal_or_scope_ambiguity",
+    "expected_clarification_points": [
+      "There is no semester column in enrollments and 'this semester' has no defined start/end enrollment_date range",
+      "Clarify the exact enrollment_date window to filter on"
+    ]
   }
 ]
