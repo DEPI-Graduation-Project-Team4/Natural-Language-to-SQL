@@ -1,0 +1,123 @@
+[
+ {
+  "id": "univ_fs_001",
+  "db_id": "university",
+  "db_path": "data/university.db",
+  "question": "How many students are there?",
+  "gold_sql": "SELECT COUNT(*) FROM students",
+  "hardness": "easy",
+  "sql_components": [
+   "COUNT"
+  ],
+  "is_ambiguous": false,
+  "ambiguity_category": null,
+  "expected_clarification_points": []
+ },
+ {
+  "id": "univ_fs_002",
+  "db_id": "university",
+  "db_path": "data/university.db",
+  "question": "What is the highest numeric score recorded?",
+  "gold_sql": "SELECT MAX(numeric_score) FROM grades",
+  "hardness": "easy",
+  "sql_components": [
+   "MAX"
+  ],
+  "is_ambiguous": false,
+  "ambiguity_category": null,
+  "expected_clarification_points": []
+ },
+ {
+  "id": "univ_fs_003",
+  "db_id": "university",
+  "db_path": "data/university.db",
+  "question": "List the first and last names of Physics majors.",
+  "gold_sql": "SELECT first_name, last_name FROM students WHERE major = 'Physics'",
+  "hardness": "medium",
+  "sql_components": [
+   "WHERE"
+  ],
+  "is_ambiguous": false,
+  "ambiguity_category": null,
+  "expected_clarification_points": []
+ },
+ {
+  "id": "univ_fs_004",
+  "db_id": "university",
+  "db_path": "data/university.db",
+  "question": "List the first and last names of students who enrolled after 2021.",
+  "gold_sql": "SELECT first_name, last_name FROM students WHERE enrollment_year > 2021",
+  "hardness": "medium",
+  "sql_components": [
+   "WHERE"
+  ],
+  "is_ambiguous": false,
+  "ambiguity_category": null,
+  "expected_clarification_points": []
+ },
+ {
+  "id": "univ_fs_005",
+  "db_id": "university",
+  "db_path": "data/university.db",
+  "question": "List departments whose average student grade exceeds 80.",
+  "gold_sql": "SELECT c.department, AVG(g.numeric_score) FROM courses c JOIN enrollments e ON c.course_id = e.course_id JOIN grades g ON e.enrollment_id = g.enrollment_id GROUP BY c.department HAVING AVG(g.numeric_score) > 80",
+  "hardness": "hard",
+  "sql_components": [
+   "JOIN",
+   "GROUP BY",
+   "HAVING",
+   "AVG"
+  ],
+  "is_ambiguous": false,
+  "ambiguity_category": null,
+  "expected_clarification_points": []
+ },
+ {
+  "id": "univ_fs_006",
+  "db_id": "university",
+  "db_path": "data/university.db",
+  "question": "List the emails of students who have never enrolled in any course.",
+  "gold_sql": "SELECT email FROM students WHERE student_id NOT IN (SELECT student_id FROM enrollments)",
+  "hardness": "hard",
+  "sql_components": [
+   "WHERE",
+   "SUBQUERY"
+  ],
+  "is_ambiguous": false,
+  "ambiguity_category": null,
+  "expected_clarification_points": []
+ },
+ {
+  "id": "univ_fs_007",
+  "db_id": "university",
+  "db_path": "data/university.db",
+  "question": "Find the first and last names of students who never enrolled in any course.",
+  "gold_sql": "SELECT first_name, last_name FROM students WHERE student_id NOT IN (SELECT student_id FROM enrollments)",
+  "hardness": "extra",
+  "sql_components": [
+   "WHERE",
+   "SUBQUERY"
+  ],
+  "is_ambiguous": false,
+  "ambiguity_category": null,
+  "expected_clarification_points": []
+ },
+ {
+  "id": "univ_fs_008",
+  "db_id": "university",
+  "db_path": "data/university.db",
+  "question": "Which course has the most enrollments? Break ties alphabetically.",
+  "gold_sql": "SELECT c.course_name FROM courses c JOIN enrollments e ON c.course_id = e.course_id GROUP BY c.course_id ORDER BY COUNT(*) DESC, c.course_name LIMIT 1",
+  "hardness": "extra",
+  "sql_components": [
+   "JOIN",
+   "GROUP BY",
+   "ORDER BY",
+   "LIMIT",
+   "COUNT"
+  ],
+  "is_ambiguous": false,
+  "ambiguity_category": null,
+  "expected_clarification_points": []
+ }
+]
