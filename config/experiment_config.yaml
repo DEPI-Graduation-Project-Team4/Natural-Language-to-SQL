@@ -1,0 +1,55 @@
+# Project 3: Natural Language to SQL — Frozen Experiment Configuration (v3.1)
+# Single source of truth for M2 (LLM/prompts), M3 (executor/validator),
+# M4 (evaluation), and M5 (pipeline/app).
+
+experiment:
+  name: "nl2sql-project3"
+  version: "3.1"
+  seed: 42
+  default_mode: "grounded"
+  modes:
+    - "baseline"
+    - "grounded_schema"
+    - "grounded"
+
+llm:
+  provider: "gemini"
+  # Fast, balanced Gemini model (alternatives: gemini-3.5-flash-lite, gemini-4-argon, gemini-4-neon)
+  model_id: "gemini-4-hydrogen"
+  api_key_env: "GEMINI_API_KEY"
+  temperature: 0.0
+  top_p: 1.0
+  max_retries: 5
+  backoff_base_seconds: 1.0
+  cache_path: "data/.llm_cache.json"
+
+execution:
+  sqlite_timeout_seconds: 3.0
+  max_rows: 1000
+  read_only: true
+  pragma_query_only: true
+
+# Strict db_id -> db_path allowlist (relative to repository root).
+# Enforced by both src/pipeline.py (M5) and src/executor.py (M3).
+# Any unknown db_id or path outside this allowlist must be rejected.
+databases:
+  university: "data/university.db"
+  concert_singer: "data/spider_dbs/concert_singer/concert_singer.sqlite"
+  pets_1: "data/spider_dbs/pets_1/pets_1.sqlite"
+  car_1: "data/spider_dbs/car_1/car_1.sqlite"
+
+datasets:
+  schema_sql: "data/schema.sql"
+  few_shot_pool: "data/few_shot_pool.json"
+  dev_set: "data/dev_set.json"
+  test_set: "data/test_set.json"
+  spider_subset: "data/spider_subset.json"
+
+# SHA-256 dataset hashes — lock after Member 1 freezes the final splits
+# and verifies them with `python src/setup_db.py --check-gold`.
+dataset_hashes:
+  schema_sql: null
+  few_shot_pool: null
+  dev_set: null
+  test_set: null
+  spider_subset: null
